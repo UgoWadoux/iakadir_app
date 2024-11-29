@@ -11,7 +11,7 @@ import SwiftUI
 struct iakadir_appApp: App {
     var body: some Scene {
         WindowGroup {
-            OnboardingView()
+                OnboardingView()
         }
     }
 }
