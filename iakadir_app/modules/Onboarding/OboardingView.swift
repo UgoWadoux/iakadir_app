@@ -1,6 +1,8 @@
 import SwiftUI
 
 struct OnboardingView: View {
+    @State private var navigateToHome = false
+    
     var body: some View {
         ZStack {
             // Background
@@ -24,7 +26,7 @@ struct OnboardingView: View {
                         Capsule()
                             .fill(Color(UIColor(red: 0.80, green: 1.00, blue: 0.00, alpha: 1.00)).opacity(0.2))
                     )
-
+                
                 
                 // AI Robot face
                 VStack(spacing: 0) {
@@ -42,33 +44,53 @@ struct OnboardingView: View {
                     }
                     
                     
-                    // Button
-                    Button(action: {
-                    }) {
-                        Text("Commencer")
-                            .font(.system(size: 18, weight: .semibold))
-                            .foregroundColor(.black)
-                            .frame(maxWidth: .infinity)
-                            .padding(.vertical, 16)
-                            .background(
-                                RoundedRectangle(cornerRadius: 30)
-                                    .fill(Color.white)
-                            )
-                            .padding(.horizontal, 20)
-                    }
-                    .padding(.bottom, 50)
                 }
+//                VStack {
+//                    NavigationLink(destination: HomeView()){
+//                        Text("Commencer")
+//                            .font(.system(size: 18, weight: .semibold))
+//                            .foregroundColor(.black)
+//                            .frame(maxWidth: .infinity)
+//                            .padding(.vertical, 16)
+//                            .background(
+//                                RoundedRectangle(cornerRadius: 30)
+//                                    .fill(Color.white)
+//                            )
+//                            .padding(.horizontal, 20)
+//                    }
+//                }
+//                .padding(.bottom, 50)
                 
-            
-                            }
-                .padding()
+//                Button
+                Button(action: {
+                    navigateToHome = true
+                }) {
+                    Text("Commencer")
+                        .font(.system(size: 18, weight: .semibold))
+                        .foregroundColor(.black)
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 16)
+                        .background(
+                            RoundedRectangle(cornerRadius: 30)
+                                .fill(Color.white)
+                        )
+                        .padding(.horizontal, 20)
+                }
+                .padding(.bottom, 50)
+                .fullScreenCover(isPresented: $navigateToHome){
+                    HomeView()
+                }
             }
+            
+            
         }
+        .padding()
+        
     }
+    
+}
 
 // Preview
-struct OnboardingView_Previews: PreviewProvider {
-    static var previews: some View {
-        OnboardingView()
-    }
+#Preview {
+    OnboardingView()
 }
