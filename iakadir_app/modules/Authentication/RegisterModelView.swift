@@ -12,7 +12,6 @@ class RegisterModelView: ObservableObject {
     @Published var password: String = ""
     @Published var confirmPassword: String = ""
     @Published var errorMessage: String?
-    @Published var isLoading: Bool = false
     @Published var isSuccess: Bool = false
     
     private let authService: AuthService
@@ -46,6 +45,8 @@ class RegisterModelView: ObservableObject {
         let error = await authService.register(email: email, password: password)
         if error != nil {
             errorMessage = error?.message
+        } else {
+            isSuccess = true
         }
 
     }

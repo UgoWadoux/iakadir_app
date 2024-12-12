@@ -53,4 +53,18 @@ class AuthService: ObservableObject{
             
         }
     }
+    
+    public func login(email: String, password: String) async -> AuthError? {
+        do {
+            try await client.auth.signIn(
+                email: email,
+                password: password
+            )
+            errorMessage = nil
+            return nil
+        } catch {
+            errorMessage = AuthError.supaBaseError(message: error.localizedDescription)
+            return errorMessage
+        }
+    }
 }

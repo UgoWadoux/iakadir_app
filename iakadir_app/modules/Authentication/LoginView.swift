@@ -44,7 +44,7 @@ struct LoginView: View {
                     Text("Inscris-toi")
                         .font(.subheadline)
                         .fontWeight(.bold)
-                        .foregroundColor(Color(.iakadirGreen))
+                        .foregroundColor(.iakadirGreen)
                 }
                 .padding(.top, 40)
 
@@ -69,7 +69,7 @@ struct LoginView: View {
                     // Password Field
                     HStack {
                         Image(systemName: "lock")
-                            .foregroundColor(Color(.iakadirGreen))
+                            .foregroundColor(.iakadirGreen)
                         if isPasswordVisible {
                             TextField("Mot de passe", text: $password, prompt: Text("Mot de passe")
                                 .foregroundColor(.iakadirBlack))
@@ -92,42 +92,40 @@ struct LoginView: View {
                 }
 
                 // Login Button
+                Button(action:{
+                    
+                }
+                
+                ) {
+                    Text("Me connecter")
+                        .fontWeight(.semibold)
+                        .foregroundColor(.black)
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .background(.white)
+                        .cornerRadius(10)
+                }
+                .padding(.top, 16)
+
+                Spacer()
                 NavigationLink(destination: HomeView()) {
                     Text("Me connecter")
                         .fontWeight(.semibold)
                         .foregroundColor(.black)
                         .padding()
                         .frame(maxWidth: .infinity)
-                        .background(Color.white)
+                        .background(.white)
                         .cornerRadius(10)
                 }
                 .padding(.top, 16)
-
-                Spacer()
             }
             .padding(.horizontal, 24)
         }
     }
 }
 
-extension Color {
-    init(hex: String) {
-        let scanner = Scanner(string: hex)
-        scanner.scanLocation = 1 // Skip #
-        var rgb: UInt64 = 0
-        scanner.scanHexInt64(&rgb)
-        let red = Double((rgb >> 16) & 0xFF) / 255.0
-        let green = Double((rgb >> 8) & 0xFF) / 255.0
-        let blue = Double(rgb & 0xFF) / 255.0
-        self.init(red: red, green: green, blue: blue)
-    }
-}
 
 // Preview
-#Preview {
-    LoginView()
-}
-
 #Preview {
     LoginView()
 }
