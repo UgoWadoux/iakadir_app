@@ -11,10 +11,7 @@ import Foundation
 
 
 struct RegisterView: View {
-    @State private var email = ""
-    @State private var password = ""
-    @State private var confirmPassword = ""
-    @StateObject private var viewModel = RegisterModelView()
+    @StateObject private var viewModel = RegisterViewModel()
     
     var body: some View {
         if viewModel.isSuccess {
@@ -35,20 +32,72 @@ struct RegisterView: View {
                         .fontWeight(.bold)
                         .foregroundColor(.white)
                     
-                    VStack(spacing: 15) {
-                        TextField("Email", text: $viewModel.email)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                    VStack(spacing: 1) {
+                        HStack
+                        {
+                            Image(systemName: "envelope")
+                                .foregroundColor(.iakadirIcone)
+                            TextField("Email", text: $viewModel.email,
+                                      prompt: Text("Email")
+                                .foregroundColor(.iakadirBlack)
+                            )
+                        }
+                        .foregroundColor(.iakadirBlack)
+                        .padding()
+                        .background(
+                            .white,
+                            in: UnevenRoundedRectangle (
+                                cornerRadii: .init(
+                                    topLeading: 10,
+                                    bottomLeading: 0,
+                                    bottomTrailing: 0,
+                                    topTrailing: 10
+                                )
+                            )
+                        )
+                        HStack {
+                            Image(systemName: "lock")
+                                .foregroundColor(.iakadirIcone)
+                            SecureField("Mot de passe", text: $viewModel.password, prompt: Text("Mot de passe").foregroundColor(.iakadirBlack))
+                        }
+                        .foregroundColor(.iakadirBlack)
+                        .padding()
+                        .background(
+                            .white,
+                            in: UnevenRoundedRectangle (
+                                cornerRadii: .init(
+                                    topLeading: 0,
+                                    bottomLeading: 0,
+                                    bottomTrailing: 0,
+                                    topTrailing: 0
+                                )
+                            )
+                        )
                         
-                        SecureField("Mot de passe", text: $viewModel.password)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
-                        
-                        SecureField("Confirmer le mot de passe", text: $viewModel.confirmPassword)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                        HStack {
+                            Image(systemName: "lock")
+                                .foregroundColor(.iakadirIcone)
+                            SecureField("Confirmer le mot de passe", text: $viewModel.confirmPassword, prompt: Text("Confirmer le mot de passe")
+                                .foregroundColor(.iakadirBlack)
+                            )
+                        }
+                        .foregroundColor(.iakadirBlack)
+                        .padding()
+                        .background(
+                            .white,
+                            in: UnevenRoundedRectangle (
+                                cornerRadii: .init(
+                                    topLeading: 0,
+                                    bottomLeading: 10,
+                                    bottomTrailing: 10,
+                                    topTrailing: 0
+                                )
+                            )
+                        )
                     }
                     .padding(.horizontal)
                     
                     Button(action:  {
-                        print(email, password)
                         Task{
                             await viewModel.register()
                         }
@@ -71,7 +120,6 @@ struct RegisterView: View {
                             .padding(.top, 8)
                     }
                     
-                    Spacer()
                     
                     NavigationLink(destination: LoginView()) {
                         Text("Déjà un compte ? Connecte-toi")
