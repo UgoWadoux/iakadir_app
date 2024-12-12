@@ -5,7 +5,7 @@
 //  Created by Ugo Wadoux on 29/11/2024.
 //
 
-import SwiftUI
+import SwiftUI 
 
 struct LoginView: View {
     @State private var email: String = ""
