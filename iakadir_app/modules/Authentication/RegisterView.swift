@@ -14,6 +14,7 @@ struct RegisterView: View {
     @State private var email = ""
     @State private var password = ""
     @State private var confirmPassword = ""
+    @StateObject private var viewModel = RegisterModelView()
     
     var body: some View {
         
@@ -32,13 +33,13 @@ struct RegisterView: View {
                     .foregroundColor(.white)
                 
                 VStack(spacing: 15) {
-                    TextField("Email", text: $email)
+                    TextField("Email", text: $viewModel.email)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                     
-                    SecureField("Mot de passe", text: $password)
+                    SecureField("Mot de passe", text: $viewModel.password)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                     
-                    SecureField("Confirmer le mot de passe", text: $confirmPassword)
+                    SecureField("Confirmer le mot de passe", text: $viewModel.confirmPassword)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                 }
                 .padding(.horizontal)
@@ -46,7 +47,7 @@ struct RegisterView: View {
                 Button(action:  {
                     print(email, password)
                     Task{
-                        await AuthService().register(email: email, password: password)
+                        await viewModel.register()
                     }
                 }) {
                     Text("S'inscrire")
@@ -58,6 +59,17 @@ struct RegisterView: View {
                 }
                 .padding(.horizontal)
                 
+                
+                //Handle error message 
+                if let errorMessage = viewModel.errorMessage {
+                    Text(errorMessage)
+                        .foregroundColor(.red)
+                        .font(.subheadline)
+                        .padding(.top, 8)
+                }
+                
+                Spacer()
+                
                 NavigationLink(destination: LoginView()) {
                     Text("Déjà un compte ? Connecte-toi")
                         .foregroundColor(.white)
@@ -66,8 +78,6 @@ struct RegisterView: View {
             .padding()
         }
     }
-    
-    
 }
 
 

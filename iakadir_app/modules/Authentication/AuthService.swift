@@ -7,12 +7,34 @@
 import Foundation
 import Supabase
 
-class AuthService{
-    
+class AuthService: ObservableObject{
+    enum AuthError: Error {
+        case invalidEmail
+        case invalidPassword
+        case invalidConfirmPassword
+        case invalidUsername
+        case supaBaseError(message: String)
+        
+        var message: String {
+            switch self {
+            case .invalidEmail:
+                return "Invalid email"
+            case .invalidPassword:
+                return "Invalid password"
+            case .invalidConfirmPassword:
+                return "Invalid confirm password"
+            case .invalidUsername:
+                return "Invalid username"
+            case .supaBaseError(let message):
+                return message
+            }
+        }
+    }
     let client: SupabaseClient = SupabaseManager.shared.client
-    @Published var errorMessage: String?
+    @Published var errorMessage: AuthError?
     
-    public func register(email: String, password: String) async{
+    
+    public func register(email: String, password: String) async -> AuthError?{
         do {
             print (email, password)
             try await client.auth.signUp(
@@ -22,11 +44,13 @@ class AuthService{
                     "first_name": .string("test")
                 ]
             )
+            errorMessage = nil
+            return nil
         } catch {
             // Log and propagate error
-            errorMessage = "Failed to register: \(error.localizedDescription)"
-            throw error
+            errorMessage = AuthError.supaBaseError(message: error.localizedDescription)
+            return errorMessage
+            
         }
-        
     }
 }
