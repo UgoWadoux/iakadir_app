@@ -20,12 +20,12 @@ struct OnboardingView: View {
                     // App name
                     Text("Iakadir")
                         .font(.system(size: 24, weight: .bold))
-                        .foregroundColor(Color(UIColor(red: 0.80, green: 1.00, blue: 0.00, alpha: 1.00)))
+                        .foregroundColor(Color(.iakadirGreen))
                         .padding(.vertical, 12)
                         .padding(.horizontal, 24)
                         .background(
                             Capsule()
-                                .fill(Color(UIColor(red: 0.80, green: 1.00, blue: 0.00, alpha: 1.00)).opacity(0.2))
+                                .fill(Color(.iakadirGreen).opacity(0.2))
                         )
                     
                     
@@ -47,7 +47,7 @@ struct OnboardingView: View {
                         
                     }
                     VStack {
-                        NavigationLink(destination: HomeView()){
+                        NavigationLink(destination: RegisterView()){
                             Text("Commencer")
                                 .font(.system(size: 18, weight: .semibold))
                                 .foregroundColor(.black)

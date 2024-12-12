@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-
 @main
 struct iakadir_appApp: App {
     var body: some Scene {

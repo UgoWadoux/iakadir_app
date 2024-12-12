@@ -92,9 +92,7 @@ struct LoginView: View {
                 }
 
                 // Login Button
-                Button(action: {
-                    // Action de connexion
-                }) {
+                NavigationLink(destination: HomeView()) {
                     Text("Me connecter")
                         .fontWeight(.semibold)
                         .foregroundColor(.black)

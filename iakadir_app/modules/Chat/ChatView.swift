@@ -31,7 +31,7 @@ struct ChatView: View {
                             .font(.subheadline)
                             .padding(.horizontal, 12)
                             .padding(.vertical, 6)
-                            .background(Color(UIColor(red: 0.80, green: 1.00, blue: 0.00, alpha: 1.00)))
+                            .background(Color(.iakadirGreen))
                             .foregroundColor(.black)
                             .cornerRadius(16)
                     }
@@ -83,7 +83,7 @@ struct ChatView: View {
                         
                         Button(action: sendMessage) {
                             Image(systemName: "paperplane.fill")
-                                .foregroundColor(Color(UIColor(red: 0.80, green: 1.00, blue: 0.00, alpha: 1.00)))
+                                .foregroundColor(Color(.iakadirGreen))
                                 .frame(width: 44, height: 44)
                         }
                     }
@@ -141,7 +141,7 @@ struct MessageBubble: View {
             VStack(alignment: message.isFromUser ? .trailing : .leading, spacing: 4) {
                 Text(message.content)
                     .padding(12)
-                    .background(message.isFromUser ? Color(UIColor(red: 0.80, green: 1.00, blue: 0.00, alpha: 1.00)) : (colorScheme == .dark ? Color(UIColor(red: 0.17, green: 0.17, blue: 0.18, alpha: 1.00)) : Color(UIColor(red: 0.95, green: 0.95, blue: 0.97, alpha: 1.00))))
+                    .background(message.isFromUser ? Color(.iakadirGreen) : (colorScheme == .dark ? Color(UIColor(red: 0.17, green: 0.17, blue: 0.18, alpha: 1.00)) : Color(UIColor(red: 0.95, green: 0.95, blue: 0.97, alpha: 1.00))))
                     .foregroundColor(message.isFromUser ? .black : .primary)
                     .cornerRadius(16)
                 
