@@ -19,9 +19,7 @@ struct HomeView: View {
                 VStack(spacing: 24) {
                     // Top Bar
                     HStack {
-                        Button(action: {
-                            // Menu action
-                        }) {
+                        NavigationLink(destination: ProfileView()) {
                             Image(systemName: "line.horizontal.3")
                                 .font(.title2)
                                 .foregroundColor(.white)

@@ -30,24 +30,27 @@ class AuthService: ObservableObject{
             }
         }
     }
+    let supabase = SupabaseManager.self
     let client: SupabaseClient = SupabaseManager.shared.client
     @Published var errorMessage: AuthError?
     
     
-    public func register(email: String, password: String) async -> AuthError?{
+    public func register(email: String, password: String, first_name:String, last_name:String) async -> AuthError?{
         do {
             print (email, password)
             try await client.auth.signUp(
                 email: email,
                 password: password,
                 data: [
-                    "first_name": .string("test")
+                    "first_name": .string(first_name),
+                    "last_name": .string(last_name)
                 ]
             )
             errorMessage = nil
             return nil
         } catch {
             // Log and propagate error
+            print(error)
             errorMessage = AuthError.supaBaseError(message: error.localizedDescription)
             return errorMessage
             
@@ -67,4 +70,22 @@ class AuthService: ObservableObject{
             return errorMessage
         }
     }
+    
+    
+    public func getProfileFromCurrentUser() async -> Profile? {
+        do {
+            let currentUser = try await client.auth.session.user
+            let profile : Profile = try await client
+                .from("profiles")
+                .select()
+                .eq("id", value: currentUser.id)
+                .single()
+                .execute()
+                .value
+            return profile
+        } catch {
+            return nil
+        }
+    }
 }
+

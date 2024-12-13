@@ -56,6 +56,50 @@ struct RegisterView: View {
                             )
                         )
                         HStack {
+                            Image(systemName: "person.crop.circle")
+                                .foregroundColor(.iakadirIcone)
+                            TextField("Prénom", text: $viewModel.first_name, prompt: Text("Prénom")
+                                .foregroundColor(.iakadirBlack))
+                            .autocapitalization(.none)
+                            .textInputAutocapitalization(.never)
+                            .foregroundColor(.iakadirBlack)
+                        }
+                        .padding()
+                        .background(
+                            .white,
+                            in: UnevenRoundedRectangle (
+                                cornerRadii: .init(
+                                    topLeading: 0,
+                                    bottomLeading: 0,
+                                    bottomTrailing: 0,
+                                    topTrailing: 0
+                                )
+                            )
+                        )
+                        
+                        HStack {
+                            Image(systemName: "person.crop.circle")
+                                .foregroundColor(.iakadirIcone)
+                            TextField("Nom", text: $viewModel.last_name, prompt: Text("Nom")
+                                .foregroundColor(.iakadirBlack))
+                            .autocapitalization(.none)
+                            .textInputAutocapitalization(.never)
+                            .foregroundColor(.iakadirBlack)
+                        }
+                        .padding()
+                        .background(
+                            .white,
+                            in: UnevenRoundedRectangle (
+                                cornerRadii: .init(
+                                    topLeading: 0,
+                                    bottomLeading: 0,
+                                    bottomTrailing: 0,
+                                    topTrailing: 0
+                                )
+                            )
+                        )
+                        
+                        HStack {
                             Image(systemName: "lock")
                                 .foregroundColor(.iakadirIcone)
                             SecureField("Mot de passe", text: $viewModel.password, prompt: Text("Mot de passe").foregroundColor(.iakadirBlack))
