@@ -13,6 +13,7 @@
 		D5DD9FCE2D09CBBB00B77A58 /* Realtime in Frameworks */ = {isa = PBXBuildFile; productRef = D5DD9FCD2D09CBBB00B77A58 /* Realtime */; };
 		D5DD9FD02D09CBBB00B77A58 /* Storage in Frameworks */ = {isa = PBXBuildFile; productRef = D5DD9FCF2D09CBBB00B77A58 /* Storage */; };
 		D5DD9FD22D09CBBB00B77A58 /* Supabase in Frameworks */ = {isa = PBXBuildFile; productRef = D5DD9FD12D09CBBB00B77A58 /* Supabase */; };
+		D5E9452E2D32EED300CD5EB6 /* PostHog in Frameworks */ = {isa = PBXBuildFile; productRef = D5E9452D2D32EED300CD5EB6 /* PostHog */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +64,7 @@
 			files = (
 				D5DD9FCC2D09CBBB00B77A58 /* PostgREST in Frameworks */,
 				D5DD9FCA2D09CBBB00B77A58 /* Functions in Frameworks */,
+				D5E9452E2D32EED300CD5EB6 /* PostHog in Frameworks */,
 				D5DD9FD22D09CBBB00B77A58 /* Supabase in Frameworks */,
 				D5DD9FC82D09CBBB00B77A58 /* Auth in Frameworks */,
 				D5DD9FD02D09CBBB00B77A58 /* Storage in Frameworks */,
@@ -87,12 +89,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D5E9452C2D32EED300CD5EB6 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		D5EE80B22CF8A1F4001BF17B = {
 			isa = PBXGroup;
 			children = (
 				D5EE80BD2CF8A1F4001BF17B /* iakadir_app */,
 				D5EE80CE2CF8A1F5001BF17B /* iakadir_appTests */,
 				D5EE80D82CF8A1F5001BF17B /* iakadir_appUITests */,
+				D5E9452C2D32EED300CD5EB6 /* Frameworks */,
 				D5EE80BC2CF8A1F4001BF17B /* Products */,
 			);
 			sourceTree = "<group>";
@@ -133,6 +143,7 @@
 				D5DD9FCD2D09CBBB00B77A58 /* Realtime */,
 				D5DD9FCF2D09CBBB00B77A58 /* Storage */,
 				D5DD9FD12D09CBBB00B77A58 /* Supabase */,
+				D5E9452D2D32EED300CD5EB6 /* PostHog */,
 			);
 			productName = iakadir_app;
 			productReference = D5EE80BB2CF8A1F4001BF17B /* iakadir_app.app */;
@@ -218,6 +229,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				D5DD9FC62D09CB9000B77A58 /* XCRemoteSwiftPackageReference "supabase-swift" */,
+				D5E9452B2D32EB3D00CD5EB6 /* XCRemoteSwiftPackageReference "posthog-ios" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = D5EE80BC2CF8A1F4001BF17B /* Products */;
@@ -590,6 +602,14 @@
 				minimumVersion = 2.5.1;
 			};
 		};
+		D5E9452B2D32EB3D00CD5EB6 /* XCRemoteSwiftPackageReference "posthog-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/PostHog/posthog-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.19.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -622,6 +642,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D5DD9FC62D09CB9000B77A58 /* XCRemoteSwiftPackageReference "supabase-swift" */;
 			productName = Supabase;
+		};
+		D5E9452D2D32EED300CD5EB6 /* PostHog */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D5E9452B2D32EB3D00CD5EB6 /* XCRemoteSwiftPackageReference "posthog-ios" */;
+			productName = PostHog;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
