@@ -7,26 +7,96 @@
 import Foundation
 import Supabase
 
-class AuthService{
-    
+class AuthService: ObservableObject{
+    enum AuthError: Error {
+        case invalidEmail
+        case invalidPassword
+        case invalidConfirmPassword
+        case invalidUsername
+        case supaBaseError(message: String)
+        
+        var message: String {
+            switch self {
+            case .invalidEmail:
+                return "Invalid email"
+            case .invalidPassword:
+                return "Invalid password"
+            case .invalidConfirmPassword:
+                return "Invalid confirm password"
+            case .invalidUsername:
+                return "Invalid username"
+            case .supaBaseError(let message):
+                return message
+            }
+        }
+    }
+    let supabase = SupabaseManager.self
     let client: SupabaseClient = SupabaseManager.shared.client
-    @Published var errorMessage: String?
+    @Published var errorMessage: AuthError?
     
-    public func register(email: String, password: String) async{
+    
+    public func register(email: String, password: String, first_name:String, last_name:String) async -> AuthError?{
         do {
             print (email, password)
             try await client.auth.signUp(
                 email: email,
                 password: password,
                 data: [
-                    "first_name": .string("test")
+                    "first_name": .string(first_name),
+                    "last_name": .string(last_name)
                 ]
             )
+            errorMessage = nil
+            return nil
         } catch {
             // Log and propagate error
-            errorMessage = "Failed to register: \(error.localizedDescription)"
-            throw error
+            print(error)
+            errorMessage = AuthError.supaBaseError(message: error.localizedDescription)
+            return errorMessage
+            
         }
-        
+    }
+    
+    public func login(email: String, password: String) async -> AuthError? {
+        do {
+            
+            try await client.auth.signIn(
+                email: email,
+                password: password
+            )
+            await getProfileFromCurrentUser()
+                
+            errorMessage = nil
+            return nil
+        } catch {
+            errorMessage = AuthError.supaBaseError(message: error.localizedDescription)
+            return errorMessage
+        }
+    }
+    
+    
+    public func getProfileFromCurrentUser() async -> Profile? {
+        do {
+            let currentUser = try await client.auth.session.user
+            let profile : Profile = try await client
+                .from("profiles")
+                .select()
+                .eq("id", value: currentUser.id)
+                .single()
+                .execute()
+                .value
+            let user = UserProfile(
+                id: profile.id ,
+                email: profile.email,
+                firstName: profile.first_name,
+                lastName: profile.last_name,
+                is_pro: profile.is_pro
+            )
+            UserProfile.shared = user
+            return profile
+        } catch {
+            return nil
+        }
     }
 }
+

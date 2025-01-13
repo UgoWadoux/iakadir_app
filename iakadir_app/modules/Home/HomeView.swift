@@ -19,20 +19,19 @@ struct HomeView: View {
                 VStack(spacing: 24) {
                     // Top Bar
                     HStack {
-                        Button(action: {
-                            // Menu action
-                        }) {
+                        NavigationLink(destination: ProfileView()) {
                             Image(systemName: "line.horizontal.3")
                                 .font(.title2)
                                 .foregroundColor(.white)
                         }
                         
                         Spacer()
-                        
-                        Text("Hello, Ethan 👋")
-                            .font(.title3)
-                            .foregroundColor(.white)
-                        
+                        if let user = UserProfile.shared{
+                            Text("Hello, \(user.firstName ?? "") 👋")
+                                .font(.title3)
+                                .foregroundColor(.white)
+                        }
+                       
                         Spacer()
                         
                         NavigationLink(destination: SubscriptionView()) {
