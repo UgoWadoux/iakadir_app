@@ -26,11 +26,12 @@ struct HomeView: View {
                         }
                         
                         Spacer()
-                        
-                        Text("Hello, Ethan 👋")
-                            .font(.title3)
-                            .foregroundColor(.white)
-                        
+                        if let user = UserProfile.shared{
+                            Text("Hello, \(user.firstName ?? "") 👋")
+                                .font(.title3)
+                                .foregroundColor(.white)
+                        }
+                       
                         Spacer()
                         
                         NavigationLink(destination: SubscriptionView()) {

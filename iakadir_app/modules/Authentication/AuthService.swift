@@ -59,10 +59,13 @@ class AuthService: ObservableObject{
     
     public func login(email: String, password: String) async -> AuthError? {
         do {
+            
             try await client.auth.signIn(
                 email: email,
                 password: password
             )
+            await getProfileFromCurrentUser()
+                
             errorMessage = nil
             return nil
         } catch {
@@ -82,6 +85,14 @@ class AuthService: ObservableObject{
                 .single()
                 .execute()
                 .value
+            let user = UserProfile(
+                id: profile.id ,
+                email: profile.email,
+                firstName: profile.first_name,
+                lastName: profile.last_name,
+                is_pro: profile.is_pro
+            )
+            UserProfile.shared = user
             return profile
         } catch {
             return nil
